@@ -62,7 +62,7 @@
   "main": "dist/vue-phone-number-input.common.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LouisMazel/vue-phone-number-input.git"
+    "url": "git+https://github.com/attikos/vue-phone-number-input.git"
   },
   "bugs": {
     "url": "https://github.com/LouisMazel/vue-phone-number-input/issues"
