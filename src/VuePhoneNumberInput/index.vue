@@ -116,7 +116,7 @@
       locale () {
         const locale = this.defaultCountryCode || (!this.noUseBrowserLocale ? browserLocale() : null)
         const countryAvailable = isCountryAvailable(locale)
-        
+
         if (countryAvailable && locale) {
           this.countryCode = locale
         } else if (!countryAvailable && this.defaultCountryCode) {
@@ -129,7 +129,7 @@
         get () {
           return this.results.countryCode || this.locale
         },
-        set (newCountry) { 
+        set (newCountry) {
           this.emitValues({countryCode: newCountry, phoneNumber: this.phoneNumber})
           if (this.focusInput) {
             this.$refs.PhoneNumberInput.$el.querySelector('input').focus()
@@ -156,7 +156,14 @@
       },
       phoneNumberExample () {
         const phoneNumber = this.countryCode ? getExampleNumber(this.countryCode, examples) : null
-        return phoneNumber ? phoneNumber.formatNational() : null
+
+        if ( phoneNumber ) {
+          const regexpCode = new RegExp('^\\+' + phoneNumber.countryCallingCode )
+
+          return phoneNumber.formatInternational().replace(regexpCode, '')
+        }
+
+        return null
       },
       hasEmptyPhone () {
         return this.phoneNumber === '' || this.phoneNumber === null
@@ -179,7 +186,7 @@
           countryCode: countryCode,
           isValid: false,
           ...( parsing
-            ? { 
+            ? {
               formattedNumber: parsing.number,
               nationalNumber: parsing.nationalNumber,
               isValid: parsing.isValid(),
@@ -234,7 +241,7 @@
     }
     .select-country-container {
       .input-country-selector input {
-        border-top-right-radius: 0 !important; 
+        border-top-right-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
       }
     }
